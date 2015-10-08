@@ -1,0 +1,19 @@
+{
+  "name": "main",
+  "version": "0.0.0",
+  "authors": [
+    "Rube <353371737@qq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "seajs": "~2.3.0",
+    "react": "~0.14.0"
+  }
+}
