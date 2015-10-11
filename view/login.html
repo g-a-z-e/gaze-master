@@ -1,0 +1,63 @@
+<body>
+<div class="content">
+    <div class="login-block">
+        <div class="login-block-left">
+            <div class="login-block-bg">
+                <img src="images/index-titlebg.jpg"/>
+            </div>
+            <div class="login-block-cover"></div>
+            <div class="logo">
+                <img src="images/gaze-logo.png"/>
+            </div>
+            <div class="font">
+                <h3>Welcome</h3>
+            </div>
+        </div>
+        <div class="login-block-right">
+            <div class="login-wrap">
+                <div class="option-select">
+                    <a id="select-login" class="option-selected">Login</a>
+                    /
+                    <a id="select-sign">Sign Up</a>
+                </div>
+                <div id="form-login">
+                    <form method="post" action="/login">
+                        <div class="form-input">
+                            <input type="text" placeholder="UserName" name="username"/>
+                        </div>
+                        <div class="form-input">
+                            <input type="password" placeholder="Password" name="password"/>
+                        </div>
+                        <div>
+                            <input type="submit" value="Login" class="btn-submit"/>
+                        </div>
+                        <div>
+                            <span style="display:none;"><%=csrf%></span>
+                        </div>
+                    </form>
+                </div>
+                <div id="form-sign" style="display: none">
+                    <form method="post" action="/signUp">
+                        <div class="form-input">
+                            <input type="text" placeholder="UserName" name="username"/>
+                        </div>
+                        <div class="form-input">
+                            <input type="password" placeholder="Password" name="password"/>
+                        </div>
+                        <div class="form-input">
+                            <input type="password" placeholder="Password Again" name="passwordAgain"/>
+                        </div>
+                        <div>
+                            <input type="submit" value="Sign Up" class="btn-submit"/>
+                        </div>
+                        <div>
+                            <span style="display: none;"><%=csrf%></span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/login.js"></script>
