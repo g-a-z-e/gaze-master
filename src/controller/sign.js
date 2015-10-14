@@ -1,4 +1,5 @@
 const md5 = require('md5');
+const privateSalt = require('../config').private.salt;
 const Admin = require('../model').Admin;
 
 const check = function (username, password) {
@@ -63,7 +64,7 @@ exports.login = function *() {
             let response = {
                 message: true
             };
-            let GAZEID = md5(md5(username) + Date.now());
+            let GAZEID = md5(md5(username) + Date.now() + privateSalt);
             cb.data.userToken = GAZEID;
             const cb2 = yield new Promise((resolve) => {
                 cb.data.save((err) => {
@@ -117,8 +118,8 @@ exports.signUp = function *() {
         return;
     }
 
-    let salt = md5(Math.random() + Date.now());
-    let GAZEID = md5(md5(username) + Date.now());
+    let salt = md5(Math.random() + Date.now() + privateSalt);
+    let GAZEID = md5(md5(username) + Date.now() + privateSalt);
     let admin = new Admin();
     admin.userName = username;
     admin.password = md5(md5(password) + salt);
@@ -192,6 +193,7 @@ exports.check = function *(next) {
         this.body = response;
         this.redirect('/login');
     } else {
+        this.gazeScope['admin'] = cb.data;
         yield next;
     }
 };
