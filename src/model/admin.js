@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const GroupSchema = require('./group');
+const GroupSchema = require('./group').GroupSchema;
 
 const AdminSchema = new Schema({
         userName: {type: String, unique: true},

@@ -8,4 +8,7 @@ const GroupSchema = new Schema({
     createTime: {type: Date, default: Date.now}
 });
 
-module.exports = GroupSchema;
+const Group = mongoose.model('Group', GroupSchema);
+
+exports.Group = Group;
+exports.GroupSchema = GroupSchema;
