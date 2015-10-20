@@ -1,0 +1,54 @@
+@import "fonts";
+
+@fontpath: '/fonts/font-awesome-4.4.0/fonts/';
+
+@fill: 100%;
+@normal-height: 80px;
+@base-color: #00bfa5;
+@block-color: #fff;
+@bg-color: #eee;
+@line-color: #ccc;
+@btn-color: #dc635f;
+@listbg-color: #252626;
+@infobg-color: #ddd;
+@hover-color: #767d8e;
+
+body, ul, button, input, h1, h2, h3, h4, h5, p {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.inline {
+  float: left;
+}
+
+@font-face {
+  font-family: FontAwesome;
+  src: url("@{fontpath}fontawesome-webfont.eot?v=4.3.0");
+  src: url("@{fontpath}fontawesome-webfont.eot?#iefix&v=4.3.0") format('embedded-opentype'), url("@{fontpath}fontawesome-webfont.woff2?v=4.3.0") format('woff2'), url("@{fontpath}fontawesome-webfont.woff?v=4.3.0") format('woff'), url("@{fontpath}fontawesome-webfont.ttf?v=4.3.0") format('truetype'), url("@{fontpath}fontawesome-webfont.svg?v=4.3.0#fontawesomeregular") format('svg');
+  font-weight: 400;
+  font-style: normal
+}
+
+.fonticon {
+  color: #777;
+  font-size: 22px;
+  cursor: pointer;
+  font-family: FontAwesome;
+}
+
+#content {
+  overflow: hidden;
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background-color: @line-color;
+}
