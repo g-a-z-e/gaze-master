@@ -3,6 +3,8 @@ var babel = require('gulp-babel');
 var headerfooter = require('gulp-header-footer');
 var react = require('gulp-react');
 //var livereload = require('gulp-livereload');
+var concat = require('gulp-concat');
+var less = require('gulp-less');
 
 
 /** node **/
@@ -12,7 +14,7 @@ gulp.task('babel', function () {
         .pipe(gulp.dest('dist'))
 });
 
-/** web **/
+/** web-js **/
 gulp.task('bower-init', function () {
     var path = 'public/js/main/react-dev/bower_components';
     var pattern = ['/seajs/dist/sea.js'];
@@ -50,8 +52,16 @@ gulp.task('seajs build', ['react'], function () {
         .pipe(gulp.dest(path))
 });
 
+/** web-css **/
+gulp.task('less', function () {
+    return gulp.src('public/css/main/main.less')
+        .pipe(less())
+        .pipe(concat('main.css'))
+        .pipe(gulp.dest('public/css'))
+});
+
 /** init **/
-gulp.task('default', ['babel', 'seajs build', 'bower-init'], function () {
+gulp.task('default', ['babel', 'seajs build', 'bower-init', 'less'], function () {
     var watcher = gulp.watch('src/**/*.js', ['babel']);
     watcher.on('change', function (event) {
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
@@ -59,7 +69,12 @@ gulp.task('default', ['babel', 'seajs build', 'bower-init'], function () {
 
     var watcherReact = gulp.watch('public/js/main/react-dev/**/*.jsx', ['seajs build']);
     watcherReact.on('change', function (event) {
-        console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+        console.log('React File ' + event.path + ' was ' + event.type + ', running tasks...');
+    });
+
+    var watcherLess = gulp.watch('public/css/main/**/*.less', ['less']);
+    watcherLess.on('change', function (event) {
+        console.log('Less File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
 
