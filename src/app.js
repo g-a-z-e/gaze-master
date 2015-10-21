@@ -13,6 +13,7 @@ const app = koa();
 const indexController = require('./controller/index');
 const signController = require('./controller/sign');
 const mainController = require('./controller/main');
+const groupController = require('./controller/group');
 
 function getClientIp(req) {
     return req.headers['x-forwarded-for'] ||
@@ -53,13 +54,23 @@ router.post('/signUp', function *(next) {
 });
 
 router.get('/g/:groupKey', function *(next) {
+    yield signController.check.call(this, next);
+}, function *(next) {
+    yield groupController.action.call(this, 'get');
 });
 
-router.post('/g/:groupKey/:action', function *(next) {
-
+//groupKey when[put, delete] groupName when[post]
+router.get('/g/:groupKey/:action', function *(next) {
+    yield signController.check.call(this, next);
+}, function *(next) {
+    yield groupController.action.call(this, this.params.action);
 });
 
 app.keys = ['session secret'];
+app.use(function *(next) {
+    this.gazeScope = {};
+    yield next;
+});
 app.use(session(app));
 csrf(app);
 app.use(bodyParser());
