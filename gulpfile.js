@@ -5,7 +5,7 @@ var react = require('gulp-react');
 //var livereload = require('gulp-livereload');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
-
+var rename = require("concur-gulp-rename");
 
 /** node **/
 gulp.task('babel', function () {
@@ -17,7 +17,10 @@ gulp.task('babel', function () {
 /** web-js **/
 gulp.task('bower-init', function () {
     var path = 'public/js/main/react-dev/bower_components';
-    var pattern = ['/seajs/dist/sea.js'];
+    var pattern = ['/seajs/dist/sea.js',
+        '/fetch/fetch.js',
+        '/babel-polyfill/browser-polyfill.js'
+    ];
     pattern = pattern.map(function (item) {
         return path + item;
     });
