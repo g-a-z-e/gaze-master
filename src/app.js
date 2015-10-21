@@ -36,6 +36,13 @@ router.get('/', function *(next) {
 });
 
 router.get('/login', function *(next) {
+    if (this.cookies.get('CHECK')) {
+        this.cookies.set('CHECK', null, {expires: new Date(Date.now())});
+        yield next;
+    } else {
+        yield signController.check.call(this, next);
+    }
+}, function *(next) {
     yield signController.fn.call(this);
 });
 
@@ -60,7 +67,7 @@ router.get('/g/:groupKey', function *(next) {
 });
 
 //groupKey when[put, delete] groupName when[post]
-router.get('/g/:groupKey/:action', function *(next) {
+router.post('/g/:groupKey/:action', function *(next) {
     yield signController.check.call(this, next);
 }, function *(next) {
     yield groupController.action.call(this, this.params.action);
