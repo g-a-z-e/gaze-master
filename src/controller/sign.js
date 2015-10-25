@@ -26,6 +26,11 @@ const check = function (username, password) {
 };
 
 exports.fn = function *() {
+    if (this.gazeScope.admin) {              //have login flag
+        this.redirect('/main');
+        return;
+    }
+
     yield this.render('login', {
         title: 'Gaze Login',
         css: 'css/index.css',
@@ -160,6 +165,8 @@ exports.signUp = function *() {
 
 exports.check = function *(next) {
     const GAZEID = this.cookies.get('GAZEID');
+    this.cookies.set('CHECK', true, {expires: new Date(Date.now() + 10 * 1000)});               //Prevent Redirection
+
     if (GAZEID == null || GAZEID.length != 32 || !(/^[0-9a-zA-Z]+$/).exec(GAZEID)) {
         let response = {
             message: false
@@ -187,6 +194,7 @@ exports.check = function *(next) {
     });
 
     if (cb.msg) {
+        console.log(cb.err);
         let response = {
             message: false
         };
