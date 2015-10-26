@@ -194,16 +194,17 @@
       cursor: pointer;
 
       &:hover {
-        border-top-color: @listbg-color;
+        border-top-color: @hover-color;
+        border-top-color: @hover-color;
       }
     }
 
     .triangledown {
-      border-top: @width * 2 solid @hover-color;
+      border-top: @width * 2 solid @listbg-color;
     }
 
     .triangleup {
-      border-bottom: @width * 2 solid @hover-color;
+      border-bottom: @width * 2 solid @listbg-color;
     }
     @width: 10px;
   }
