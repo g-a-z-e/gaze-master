@@ -24,6 +24,7 @@ gulp.task('bower-init', function () {
     pattern = pattern.map(function (item) {
         return path + item;
     });
+
     return gulp.src(pattern)
         .pipe(gulp.dest('public/js/main/bower'));
 });
@@ -40,6 +41,7 @@ gulp.task('seajs build', ['react'], function () {
     var pattern = [path + '/**/*.js',
         'public/js/main/react-dev/bower_components/react/react.js',
         'public/js/main/react-dev/bower_components/react/react-dom.js',
+        'public/js/main/react-dev/bower_components/d3/d3.min.js',
         'node_modules/react-redux/dist/react-redux.js',
         'node_modules/redux/dist/redux.js'
     ];
