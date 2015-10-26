@@ -222,13 +222,13 @@ li {
   cursor: pointer;
 }
 .titlebar .selectbar .triangle:hover {
-  border-top-color: #252626;
+  border-top-color: #767d8e;
 }
 .titlebar .selectbar .triangledown {
-  border-top: 20px solid #767d8e;
+  border-top: 20px solid #252626;
 }
 .titlebar .selectbar .triangleup {
-  border-bottom: 20px solid #767d8e;
+  border-bottom: 20px solid #252626;
 }
 .itemlist {
   margin-bottom: -2000px;
