@@ -35,10 +35,5 @@
     "react": "^0.14.0",
     "react-redux": "^4.0.0",
     "redux": "^3.0.2"
-  },
-  "spm": {
-    "dependencies": {
-      "d3": "~3.4.8"
-    }
   }
 }
