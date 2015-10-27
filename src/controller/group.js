@@ -2,6 +2,7 @@ const Admin = require('../model').Admin;
 const Group = require('../model').Group;
 const privateSalt = require('../config').private.salt;
 const md5 = require('md5');
+const check = require('../common/params').check;
 const GROUPTYPE = ['Android', 'IOS', 'Web', 'Wap', 'Server', 'Node', 'Linux', 'ALL'];   //ALL is not a Type
 const RESPONSE_FALSE = {
     message: false
@@ -105,22 +106,3 @@ exports.action = function *(actionType) {
     }
 };
 
-function check(params, query) {
-    let flag = false;
-    params.forEach(param => {
-        if (this.params[param] == null) {
-            this.body = RESPONSE_FALSE;
-            this.status = 500;
-            flag = true;
-        }
-    });
-
-    query.forEach(param => {
-        if (this.query[param] == null) {
-            this.body = RESPONSE_FALSE;
-            this.status = 500;
-            flag = true;
-        }
-    });
-    return flag;
-}
