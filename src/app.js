@@ -6,6 +6,7 @@ const bodyParser = require('koa-bodyparser');
 const csrf = require('koa-csrf');
 const session = require('koa-session');
 const path = require('path');
+const fs = require('fs');
 
 const config = require('./config');
 const app = koa();
@@ -22,6 +23,14 @@ function getClientIp(req) {
         req.connection.socket.remoteAddress;
 };
 
+var pluginList = fs.readdirSync(__dirname + '/plugin');              //init plugins
+pluginList.forEach(pluginName => {
+    let pluginIn = require(`./plugin/${pluginName}/in`);
+    let pluginOut = require(`./plugin/${pluginName}/out`);
+
+    pluginIn.init(router);
+    pluginOut.init(router);
+});
 
 render(app, {
     root: path.join(__dirname, '../view'),
