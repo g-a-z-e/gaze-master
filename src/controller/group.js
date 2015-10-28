@@ -4,15 +4,10 @@ const privateSalt = require('../config').private.salt;
 const md5 = require('md5');
 const check = require('../common/params').check;
 const GROUPTYPE = ['Android', 'IOS', 'Web', 'Wap', 'Server', 'Node', 'Linux', 'ALL'];   //ALL is not a Type
-const RESPONSE_FALSE = {
-    message: false
-};
-const RESPONSE_TRUE = {
-    message: true
-};
+import {RESPONSE_FALSE, RESPONSE_TRUE} from '../common/response';
 
 class Action {
-    static getAction() {
+    static * getAction() {
 
         let getMethod = this.params.groupKey;
         let admin = this.gazeScope.admin;
@@ -23,16 +18,17 @@ class Action {
                 return true;
             }
         });
-        
+
         if (getMethod == 'all') {
             this.body = Object.assign({}, RESPONSE_TRUE, {data: {groups: filterCb}});
         }
     }
 
-    static postAction() {
+    static * postAction() {
         let admin = this.gazeScope.admin;
         let groupName = this.params.groupKey;
         let groupType = this.query.groupType;
+        let groupServerAddress = this.query.groupServerAddress;
 
         var filterCb = admin.groups.filter(group=> {
             if (groupName == group.groupName && groupType == group.groupType) {
@@ -51,8 +47,9 @@ class Action {
         group.groupName = groupName;
         group.groupType = groupType;
         group.groupKey = groupKey;
+        group.groupServerAddress = groupServerAddress;
 
-        const cb = new Promise((resolve) => {
+        const cb = yield new Promise((resolve) => {
             admin.groups.push(group);
             admin.save(err => {
                 if (err) {
@@ -78,11 +75,11 @@ class Action {
         }
     }
 
-    static putAction() {
+    static * putAction() {
 
     }
 
-    static deleteAction() {
+    static * deleteAction() {
 
     }
 }
@@ -90,16 +87,24 @@ class Action {
 exports.action = function *(actionType) {
 
     if (Action[actionType + 'Action'] != null) {
-        if (check.call(this, ['groupKey'], ['groupType'])) {
+
+        let queryFilter = ['groupType'];
+        if (actionType === 'post') {
+            queryFilter.push('groupServerAddress');
+        }
+        if (!check.call(this, ['groupKey'], queryFilter)) {
+            this.body = RESPONSE_FALSE;
+            this.status = 500;
             return;
         }
-        //TODO: post 时 groupName 的过滤
+
+        //TODO: post 时 groupName, groupServerAddress 的过滤
         if ((!(/^[0-9a-zA-Z]+$/).exec(this.params.groupKey) && actionType != 'post') || GROUPTYPE.indexOf(this.query.groupType) === -1) {
             this.body = RESPONSE_FALSE;
             this.status = 500;
             return;
         }
-        Action[actionType + 'Action'].call(this);
+        yield Action[actionType + 'Action'].call(this);
     } else {
         this.body = RESPONSE_FALSE;
         this.status = 500;
