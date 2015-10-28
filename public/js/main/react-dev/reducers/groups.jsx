@@ -11,7 +11,7 @@ import {Group} from '../constants/entity';
 export default (state = [], action) => {
     switch (action.type) {
         case ADD_GROUP:
-            let group = new Group(action.groupName, action.groupType, action.groupKey);
+            let group = new Group(action.groupName, action.groupType, action.groupKey, action.groupServerAddress);
             return [group, ...state];
             break;
         case DELETE_GROUP:
@@ -25,7 +25,7 @@ export default (state = [], action) => {
             break;
         case FIND_ALL_GROUP:
             let groups = action.groups.map(group=> {
-                return new Group(group.groupName, group.groupType, group.groupKey);
+                return new Group(group.groupName, group.groupType, group.groupKey, group.groupServerAddress);
             });
             return groups;
             break;

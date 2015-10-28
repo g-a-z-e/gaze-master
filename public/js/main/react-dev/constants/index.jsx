@@ -18,7 +18,7 @@ export const SELECT_GROUP = 'SELECT_GROUP';
 export const API_CREDENTIALS = 'include';
 export const GROUP_API_FIND = (groupKey, groupType) => `/g/${groupKey}?groupType=${groupType}`;
 export const GROUP_API_FINDALL = (groupType) => `/g/all?groupType=${groupType}`;
-export const GROUP_API_ADD = (groupName, groupType) => `/g/${groupName}/post?groupType=${groupType}`;
+export const GROUP_API_ADD = (groupName, groupType, groupServerAddress) => `/g/${groupName}/post?groupType=${groupType}&groupServerAddress=${groupServerAddress}`;
 export const GROUP_API_UPDATE = (groupKey, groupType) => `/g/${groupKey}/put?groupType=${groupType}`;
 export const GROUP_API_REMOVE = (groupKey, groupType) => `/g/${groupKey}/delete?groupType=${groupType}`;
 

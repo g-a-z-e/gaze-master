@@ -15,9 +15,9 @@ import {checkStatus, parseJSON} from '../common/fetch'
 const GROUP_API_ADD = constants.GROUP_API_ADD;
 
 /** server operate **/
-export function addGroup(groupName, groupType, resolve, reject) {
+export function addGroup(groupName, groupType, groupServerAddress, resolve, reject) {
     return dispatch => {
-        fetch(GROUP_API_ADD(groupName, groupType), {
+        fetch(GROUP_API_ADD(groupName, groupType, groupServerAddress), {
             method: 'post',
             credentials: constants.API_CREDENTIALS
         })
@@ -30,7 +30,8 @@ export function addGroup(groupName, groupType, resolve, reject) {
                     type: constants.ADD_GROUP,
                     groupName,
                     groupType,
-                    groupKey
+                    groupKey,
+                    groupServerAddress
                 });
                 resolve && resolve();
             }

@@ -26,11 +26,13 @@ class CreateBar extends React.Component {
             btnWord: 0,
             selectItem: null,
             groupName: '',
+            groupServerAddress: '',
             createBtnInfo: language.G_CREATE
         };
         this.showWindow = this.showWindow.bind(this);
         this.createGroup = this.createGroup.bind(this);
         this.inputGroupName = this.inputGroupName.bind(this);
+        this.inputGroupServerAddress = this.inputGroupServerAddress.bind(this);
         this.selectType = this.selectType.bind(this);
     }
 
@@ -56,6 +58,7 @@ class CreateBar extends React.Component {
                     return (
                         <div className='create-zone'>
                             <input className='name-block' placeholder="group name" value={this.state.groupName} onChange={this.inputGroupName}/>
+                            <input className='name-block' placeholder="server domain or ip" value={this.state.groupServerAddress} onChange={this.inputGroupServerAddress}/>
                             <h4>group type</h4>
                             <p className='line'></p>
                             <div className='triangle'></div>
@@ -89,23 +92,31 @@ class CreateBar extends React.Component {
         this.setState({groupName});
     }
 
+    inputGroupServerAddress(e) {
+        const groupServerAddress = e.target.value;
+        this.setState({groupServerAddress});
+    }
+
     createGroup() {
         let {addGroup} = this.props;
         let groupName = this.state.groupName.trim();
+        let groupServerAddress = this.state.groupServerAddress.trim();
         let {selectItem, createBtnInfo} = this.state;
+        let groupType = selectItem;
 
         const SUCCESS_STATE = {
             createBtnInfo: language.G_CREATE_SUCCESS,
             selectItem: null,
-            groupName: ''
+            groupName: '',
+            groupServerAddress: ''
         };
         const LOADING_STATE = {createBtnInfo: '...'};
         const ERROR_STATE = {createBtnInfo: language.G_CREATE_ERROR};
         const CREATE_STATE = {createBtnInfo: language.G_CREATE};
 
-        if (groupName && selectItem && createBtnInfo == language.G_CREATE) {
+        if (groupName && groupType && groupServerAddress && createBtnInfo == language.G_CREATE) {
             this.setState(LOADING_STATE);
-            addGroup(groupName, selectItem, ()=> {
+            addGroup(groupName, groupType, groupServerAddress, ()=> {
                 this.setState(SUCCESS_STATE);
                 setTimeout(()=> {
                     this.setState(CREATE_STATE);
