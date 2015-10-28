@@ -1,8 +1,12 @@
 @import "global";
 
 .itemlist {
-  margin-bottom: -2000px;
-  padding-bottom: 2000px;
+  overflow-y: scroll;
   background-color: @listbg-color;
   width: 15%;
+  height: 100%;
+}
+
+.itemlist-wrapper{
+  margin-top: @normal-height;
 }

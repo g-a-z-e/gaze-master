@@ -22,6 +22,10 @@ p {
   padding: 0;
   outline: 0;
 }
+html,
+body {
+  height: 100%;
+}
 li {
   list-style: none;
 }
@@ -41,8 +45,10 @@ li {
   cursor: pointer;
   font-family: FontAwesome;
 }
+#main,
+#main-wrapper,
 #content {
-  overflow: hidden;
+  height: 100%;
 }
 .line {
   height: 1px;
@@ -231,8 +237,11 @@ li {
   border-bottom: 20px solid #252626;
 }
 .itemlist {
-  margin-bottom: -2000px;
-  padding-bottom: 2000px;
+  overflow-y: scroll;
   background-color: #252626;
   width: 15%;
+  height: 100%;
+}
+.itemlist-wrapper {
+  margin-top: 80px;
 }
