@@ -16,12 +16,13 @@ const signController = require('./controller/sign');
 const mainController = require('./controller/main');
 const groupController = require('./controller/group');
 
-function getClientIp(req) {
-    return req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
-};
+render(app, {
+    root: path.join(__dirname, '../view'),
+    layout: 'template',
+    viewExt: 'html',
+    cache: false,
+    debug: true
+});
 
 var pluginList = fs.readdirSync(__dirname + '/plugin');              //init plugins
 pluginList.forEach(pluginName => {
@@ -30,14 +31,6 @@ pluginList.forEach(pluginName => {
 
     pluginIn.init(router);
     pluginOut.init(router);
-});
-
-render(app, {
-    root: path.join(__dirname, '../view'),
-    layout: 'template',
-    viewExt: 'html',
-    cache: false,
-    debug: true
 });
 
 router.get('/', function *(next) {
