@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     cookieKey: String,
     specialKey: String,
-    groupID: Schema.Types.ObjectId,
+    groupKey: String,
     information: [InfoSchema]
 });
 
